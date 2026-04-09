@@ -1,0 +1,43 @@
+{
+    "name": "FastAPI Dev Test",
+    "dockerComposeFile": ["../compose.yml"],
+    "service": "backend",
+    "workspaceFolder": "/workspace",
+
+    // 在容器内安装 Node.js，这样你就能在同一个容器里跑前端和后端
+    "features": {
+        "ghcr.io/devcontainers/features/node:1": { "version": "lts" }
+    },
+
+    // 将容器端口映射到 Windows
+    "forwardPorts": [8000, 5173, 5432],
+
+    "customizations": {
+        "vscode": {
+            // 这里的插件只会安装在容器内部
+            "extensions": [
+                "ms-python.python",
+                "ms-python.debugpy",
+                "ms-python.vscode-pylance",
+                "ms-edge.scripts-debug-browser",
+                "FastAPILabs.fastapi-vscode",
+                "astral-sh.ty",
+                "biomejs.biome",
+                "bradlc.vscode-tailwindcss",
+                "charliermarsh.ruff",
+                "docker.docker",
+                "mjmlio.vscode-mjml",
+                "tombi-toml.tombi"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/app/.venv/bin/python",
+                "python.analysis.extraPaths": ["/app/backend"]
+            }
+        }
+    },
+
+    // 容器启动后自动安装前端依赖
+    "postCreateCommand": "cd frontend && npm install",
+
+    "remoteUser": "root"
+}
