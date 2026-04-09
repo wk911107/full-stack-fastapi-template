@@ -2,27 +2,28 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: FastAPI",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "uvicorn",
-            "args": ["app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"],
-            "cwd": "/app/backend", 
-            "jinja": true
+        "name": "Debug FastAPI",
+        "type": "debugpy",
+        "request": "launch",
+        "module": "uvicorn",
+        "args": [
+            "app.main:app",
+            "--reload"
+        ],
+        "cwd": "${workspaceFolder}/backend",
         },
         {
             "name": "Edge: Frontend",
             "type": "msedge",
             "request": "launch",
             "url": "http://localhost:5173",
-            "webRoot": "${workspaceFolder}/frontend",
-            "preLaunchTask": "Start Frontend" // 对应下方的任务
+            "webRoot": "${workspaceFolder}/frontend"
         }
     ],
     "compounds": [
         {
             "name": "🚀 全栈一键调试",
-            "configurations": ["Python: FastAPI", "Edge: Frontend"],
+            "configurations": ["Debug FastAPI", "Edge: Frontend"],
             "stopAll": true
         }
     ]

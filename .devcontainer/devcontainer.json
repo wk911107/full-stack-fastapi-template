@@ -19,7 +19,7 @@
                 "ms-python.python",
                 "ms-python.debugpy",
                 "ms-python.vscode-pylance",
-                "ms-edge.scripts-debug-browser",
+                "ms-edgedevtools.vscode-edge-devtools",
                 "FastAPILabs.fastapi-vscode",
                 "astral-sh.ty",
                 "biomejs.biome",

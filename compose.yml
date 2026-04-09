@@ -33,6 +33,17 @@ services:
         condition: service_healthy
     # 这里不需要映射端口，因为端口转发由 devcontainer.json 处理
 
+  frontend:
+    restart: "no"
+    ports:
+      - "5173:80"
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:8000
+        - NODE_ENV=development
+
 volumes:
   app-db-data:
 
