@@ -13,17 +13,18 @@
         "cwd": "${workspaceFolder}/backend",
         },
         {
-            "name": "Edge: Frontend",
-            "type": "msedge",
+            "name": "Frontend",
+            "type": "chrome",
             "request": "launch",
             "url": "http://localhost:5173",
-            "webRoot": "${workspaceFolder}/frontend"
+            "webRoot": "${workspaceFolder}/frontend",
+            "preLaunchTask": "Start Frontend", 
         }
     ],
     "compounds": [
         {
             "name": "🚀 全栈一键调试",
-            "configurations": ["Debug FastAPI", "Edge: Frontend"],
+            "configurations": ["Debug FastAPI", "Frontend"],
             "stopAll": true
         }
     ]

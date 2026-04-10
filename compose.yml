@@ -10,7 +10,6 @@ services:
     volumes:
       - app-db-data:/var/lib/postgresql/data/pgdata
     env_file: [.env]
-    # 允许你在 Windows 上用数据库软件直接连
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
@@ -23,30 +22,21 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
-    # 🔥 核心：让容器保持运行但不启动 FastAPI，把 8000 端口留给 F5 调试
     command: sleep infinity 
     volumes:
+      # 使用 ./ 确保映射的是 compose.yml 所在的整个根目录
       - .:/workspace:cached
+      # 🔥 匿名卷：必须确保路径在上面主挂载点之下
+      # 这两个配置是为了防止 Windows 端的 node_modules/venv 覆盖掉容器里安装的
+      - /workspace/frontend/node_modules
+      - /workspace/backend/.venv
     env_file: [.env]
     depends_on:
       db:
         condition: service_healthy
-    # 这里不需要映射端口，因为端口转发由 devcontainer.json 处理
-
-  frontend:
-    restart: "no"
-    ports:
-      - "5173:80"
-    build:
-      context: .
-      dockerfile: frontend/Dockerfile
-      args:
-        - VITE_API_URL=http://localhost:8000
-        - NODE_ENV=development
 
 volumes:
   app-db-data:
 
-# 为了兼容你之前的配置，保留这个网络名，但不设为 external
 networks:
   traefik-public:
